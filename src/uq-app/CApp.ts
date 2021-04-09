@@ -1,5 +1,5 @@
-import { CHome } from "./home";
-import { CMe } from "./me";
+import { CHome } from "../home";
+import { CMe } from "../me";
 import { CBug } from "./bug";
 import { CUqApp } from "./CBase";
 import { res } from "./res";
@@ -36,6 +36,7 @@ export class CApp extends CUqApp {
 		this.timer = undefined;
 	}
 
+	/*
 	private tick = 0;
 	private gapIndex = 0;
 	private callTick = async () => {
@@ -58,4 +59,5 @@ export class CApp extends CUqApp {
 		catch {
 		}
 	}
+	*/
 }
