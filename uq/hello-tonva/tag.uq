@@ -1,0 +1,10 @@
+ID Tag ver 0.1 (
+	id,
+	key parent,				-- root group '-', root + name 构成大类。大类+name构成组，组+name构成tag
+	key name TextId,		-- textID
+);
+
+IX CustomerTag (
+	id,					-- object
+	id2 index log,		-- tag
+);

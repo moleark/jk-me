@@ -1,0 +1,16 @@
+ID orderMaster ver 0.1 (
+	id,
+	KEY no,
+	customer ID,
+	SYS (owner, create),
+);
+
+ID orderDetail (
+	id,
+	KEY master ID orderMaster,
+	KEY row SMALLINT,
+	product ID,
+	price DEC(12,2),
+	quantity DEC(12,2),
+	amount DEC(12,2),
+);

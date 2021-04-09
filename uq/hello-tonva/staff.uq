@@ -1,0 +1,24 @@
+ID Staff ver 0.3 (
+	id,
+	KEY no,
+	firstName CHAR(30),
+	lastName CHAR(30),
+);
+
+IDX Hours ver 0.1 
+USER(UserStaff)
+(
+	id,							-- Staff
+	onsite INT LOG TIME,		-- work hours on site，minute unit
+	offsite INT LOG TIME,		-- work hours off site，minute unit
+	break INT LOG TIME,			-- break hours minute unit
+	sick INT LOG TIME,			-- sick leave hours
+	over INT LOG TIME,			-- over time hours 
+	noTimeLog INT LOG,			-- test field for log without time
+);
+
+-- user 账号跟Staff绑定
+IX UserStaff (
+	id user,
+	id2 Staff Index,
+);

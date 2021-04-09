@@ -1,0 +1,6 @@
+ID Customer ver 0.3 (
+	id,
+	KEY no,
+	firstName CHAR(30),
+	lastName CHAR(30),
+);

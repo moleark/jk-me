@@ -1,0 +1,8 @@
+IDX Achieve ver 0.1 
+USER(UserStaff)
+(
+	id,							-- Staff
+	saleAmount DEC(12,2) LOG,	-- 销售额
+	deliver DEC(12,2) LOG,		-- 发货额
+
+);
