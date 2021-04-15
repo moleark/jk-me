@@ -88,8 +88,16 @@ export class CCTO extends CUqSub<CApp, UQs, CHome> implements AccountController 
 		let mid = new MidIDX(uq, uq.AccountCTO, uq.Account, this.timeZone);
 		let cIDX = new CIDX(mid);
 		//await cIDX.start();
-		let ret = await uq.
-		await cIDX.showItemView();
+		let ret = await uq.QueryID<any>({
+			ID: uq.Account,
+			IDX: [uq.AccountCTO],
+			key: {user: undefined},
+		});
+		if (ret.length === 0) {
+			alert('QUERY ID return nothing!');
+			return;
+		}
+		await cIDX.showItemView(ret[0]);
 		/*
 		let midIDXList = new MidIDXList(uq, uq.Account, uq.AccountCTO);
 		midIDXList.onItemClick = (item:any) => cIDX.start(item);

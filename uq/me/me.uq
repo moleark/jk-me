@@ -22,3 +22,22 @@ IDX AccountCTO (
 	orderPaid DEC(16,4) SUM LOG,				-- 收款
 	amount DEC(16,4) SUM LOG,					-- 实际可提金额
 );
+
+-- 这个地方模拟bus，写入订单值
+OPEN ACT WriteCTO ver 0.2 (
+	user ID,
+	orderAmount DEC(16,4),
+	orderDeliver DEC(16,4),
+	orderPaid DEC(16,4),
+) {
+	VAR accountId ID = ID(Account new, user);
+	IF NOT orderAmount IS NULL {
+		WITH AccountCTO as a ID=accountId SET a.orderAmount=orderAmount;
+	}
+	IF NOT orderDeliver IS NULL {
+		WITH AccountCTO as a ID=accountId SET a.orderDeliver=orderDeliver;
+	}
+	IF NOT orderPaid IS NULL {
+		WITH AccountCTO as a ID=accountId SET a.orderPaid=orderPaid;
+	}
+};

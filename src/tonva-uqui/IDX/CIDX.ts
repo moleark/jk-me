@@ -1,4 +1,4 @@
-import { makeObservable, observable, runInAction } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { Controller, PageItems } from "tonva-react";
 import { HistoryPageItems, TimeSpan } from "../tools";
 import { CList } from "../list";
@@ -22,6 +22,7 @@ export class CIDX extends Controller {
 			timeSpan: observable,
 			spanValues: observable,
 			dayValues: observable.ref,
+			setTimeSpan: action,
 		});
 		this.setRes(res);
 		this.setRes(midIDX.res);
@@ -43,6 +44,7 @@ export class CIDX extends Controller {
 	}
 
 	async showItemView(item: any) {
+		await this.midIDX.init();
 		this.item = item;
 		await this.setTimeSpan('month');
 		this.openVPage(VView);
@@ -61,10 +63,8 @@ export class CIDX extends Controller {
 
 	async setTimeSpan(span: 'day'|'week'|'month'|'year') {
 		let timeSpan = TimeSpan.create(span);
-		runInAction(async () => {
-			this.timeSpan = timeSpan;
-			await this.loadSum(timeSpan);
-		});
+		this.timeSpan = timeSpan;
+		await this.loadSum(timeSpan);
 	}
 
 	private async loadSum(timeSpan?: TimeSpan) {
@@ -96,10 +96,11 @@ export class CIDX extends Controller {
 		this.item = item;
 		this.field = field;
 		await this.midIDX.init();
-		await this.setTimeSpan('year');
+		//await this.setTimeSpan('year');
+		let timeSpan = TimeSpan.create('year');
 		this.historyPageItems.first({
 			id: this.item.id,
-			far: this.timeSpan.far,
+			far: timeSpan.far,
 			near: 1817507137000, //this.timeSpan.near,
 			field
 		});

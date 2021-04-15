@@ -21,13 +21,6 @@ import { userApi } from '../net';
 import { ReloadPage, ConfirmReloadPage } from './reloadPage';
 import { PageWebNav } from './page';
 import { createLogin, Login, showForget, showRegister } from './login';
-//import { createLogin } from '../auth/createLogin';
-
-const regEx = new RegExp('Android|webOS|iPhone|iPad|' +
-    'BlackBerry|Windows Phone|'  +
-    'Opera Mini|IEMobile|Mobile' , 
-    'i');
-const isMobile = regEx.test(navigator.userAgent);
 
 let logMark: number;
 const logs:string[] = [];
@@ -603,7 +596,7 @@ export class Nav {
 			window.onerror = this.windowOnError;
             window.onunhandledrejection = this.windowOnUnhandledRejection;
 			window.onfocus = this.reloadUser;
-            if (isMobile === true) {
+            if (env.isMobile === true) {
                 document.onselectstart = function() {return false;}
                 document.oncontextmenu = function() {return false;}
             }
@@ -742,12 +735,6 @@ export class Nav {
 		this.on(navOns);
 	}
 
-	/*
-	get isWebNav():boolean { 
-		if (!this.navigo) return false;
-		return !isMobile;
-	}
-	*/
 	isWebNav:boolean = false;
 	backIcon = <i className="fa fa-angle-left" />;
 	closeIcon = <i className="fa fa-close" />;
@@ -758,8 +745,6 @@ export class Nav {
 	}
 
 	pageWebNav: PageWebNav;
-
-	get isMobile():boolean {return isMobile;}
 
 	navigate(url:string, absolute?:boolean) {
 		if (!this.navigo) {

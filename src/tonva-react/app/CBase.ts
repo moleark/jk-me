@@ -30,7 +30,7 @@ export abstract class CBase<A extends CAppBase<U>, U> extends Controller {
 		return c;
     }
 
-    protected newSub<O extends CBase<A,U>, T extends CSub<A,U,O>>(type: IConstructor<T>, param?:any):T {
+    newSub<O extends CBase<A,U>, T extends CSub<A,U,O>>(type: IConstructor<T>, param?:any):T {
 		let s = new type(this);
 		s.init(param);
 		return s;

@@ -67,7 +67,7 @@ export abstract class Mid {
 		}
 		return ret;
 	}
-	
+
 	protected setIDUi(fieldItem:FieldItem, pickId: PickId, render: (values:any) => JSX.Element) {
 		if (fieldItem.type !== 'id') {
 			alert(`${fieldItem.name} is not id UI`);

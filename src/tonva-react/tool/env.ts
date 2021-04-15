@@ -2,7 +2,7 @@ import { from62 } from './62';
 import { LocalMap } from './localDb';
 
 export const env = (function () {
-	let {unit, testing, params, lang, district, timeZone} = initEnv();
+	let {unit, testing, params, lang, district, timeZone, isMobile} = initEnv();
     return {
 		unit,
 		testing,
@@ -12,6 +12,7 @@ export const env = (function () {
 		timeZone,
 		browser: detectBrowser(), 
         isDevelopment: process.env.NODE_ENV === 'development',
+		isMobile,
         localDb: new LocalMap(testing===true? '$$':'$'),
         setTimeout: (tag:string, callback: (...args: any[]) => void, ms: number, ...args: any[]):NodeJS.Timer => {
             return global.setTimeout(callback, ms, ...args);
@@ -34,7 +35,9 @@ function initEnv(): {
 	params: {[key:string]: string}; 
 	lang: string; 
 	district: string;
-	timeZone: number;}
+	timeZone: number;
+	isMobile: boolean;
+}
 {
 	let pl     = /\+/g,  // Regex for replacing addition symbol with a space
         search = /([^&=]+)=?([^&]*)/g,
@@ -117,7 +120,12 @@ function initEnv(): {
         if (parts.length > 1) district = parts[1].toUpperCase();
     }
 	let timeZone = -new Date().getTimezoneOffset() / 60;
-	return {unit, testing, params, lang, district, timeZone};
+	const regEx = new RegExp('Android|webOS|iPhone|iPad|' +
+    'BlackBerry|Windows Phone|'  +
+    'Opera Mini|IEMobile|Mobile' , 
+    'i');
+	const isMobile = regEx.test(navigator.userAgent);
+	return {unit, testing, params, lang, district, timeZone, isMobile};
 }
 
 function detectBrowser() { 

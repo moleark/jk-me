@@ -128,6 +128,19 @@ export interface RetActDetail3 extends RetActDetail2 {
 	detail3: number[];
 }
 
+export interface ParamQueryID {
+	ID?: ID;
+	IDX?: (ID|IDX)[];
+	IX?: IX[];
+	id?: number | number[];
+	key?: {[key:string]:string|number};
+	ix?: number;
+	idx?: number | number[];
+	keyx?: {[key:string]:string|number};
+	page?: ParamPage;
+	order?: 'desc'|'asc';
+}
+
 export interface ParamIDNO {
 	ID: ID;
 }
@@ -149,8 +162,10 @@ export interface ParamID {
 
 export interface ParamKeyID {
 	ID: ID;
-	key: {[key:string]:string|number};
 	IDX?: (ID|IDX)[];
+	IX?: IX[];
+	key: {[key:string]:string|number};
+	ix?: number;
 	page?: ParamPage;
 }
 
@@ -159,7 +174,6 @@ export interface ParamIX {
 	IX1?: IX;
 	ix: number | number[];
 	IDX?: (ID|IDX)[];
-	order?: 'asc' | 'desc',
 	page?: ParamPage;
 }
 
@@ -228,6 +242,7 @@ export interface Uq {
 	ActDetail<M,D>(param: ParamActDetail<M,D>): Promise<RetActDetail>;
 	ActDetail<M,D,D2>(param: ParamActDetail2<M,D,D2>): Promise<RetActDetail2>;
 	ActDetail<M,D,D2,D3>(param: ParamActDetail3<M,D,D2,D3>): Promise<RetActDetail3>;
+	QueryID<T>(param: ParamQueryID): Promise<T[]>;
 	IDNO(param: ParamIDNO): Promise<string>;
 	IDDetailGet<M,D>(param: ParamIDDetailGet): Promise<[M[], D[]]>;
 	IDDetailGet<M,D,D2>(param: ParamIDDetailGet): Promise<[M[], D[], D2[]]>;
@@ -695,6 +710,7 @@ export class UqMan {
 					case 'Acts': return this.Acts;
 					case 'ActIX': return this.ActIX;
 					case 'ActIXSort': return this.ActIXSort;
+					case 'QueryID': return this.QueryID;
 					case 'IDDetail': return this.ActDetail;
 					case 'IDNO': return this.IDNO;
 					case 'IDDetailGet': return this.IDDetailGet;
@@ -829,6 +845,17 @@ export class UqMan {
 			detail2: ids(items[2]),
 			detail3: ids(items[3]),
 		};
+		return ret;
+	}
+
+	private QueryID = async (param: ParamQueryID): Promise<any[]> => {
+		let {ID, IX, IDX} = param;
+		let ret = await this.uqApi.post(IDPath('query-id'), {
+			...param,
+			ID: entityName(ID),
+			IX: IX?.map(v => entityName(v)),
+			IDX: this.IDXToString(IDX),
+		});
 		return ret;
 	}
 

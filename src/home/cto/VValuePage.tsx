@@ -9,7 +9,7 @@ export class VValuePage extends VPage<CCTO> {
 		return React.createElement(observer(() => {
 			let {allValuesLoaded, orderAmountDay, orderAmountMonth/*, orderAmountYear*/} = this.controller;
 			if (allValuesLoaded === false) {
-				return <div className="px-5 py-2">
+				return <div className="px-5 py-3">
 					<FA name='spinner' spin={true} size="2x" className="text-info" />
 				</div>;
 			}

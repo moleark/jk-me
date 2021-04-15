@@ -10,16 +10,16 @@ export class VHistory extends View<CIDX> {
 	}
 
 	private renderItem = (item:any, index:number) => {
-		let {t, v, u, a, k} = item;
-		let left = <div className="w-12c small"><EasyTime date={new Date(t)} /></div>;
+		let {t, v, u} = item;
+		let left = <div className="w-12c"><EasyTime date={new Date(t)} /></div>;
 		let renderUser = (user:User) => {
 			let {name, nick} = user;
 			return <small className="text-muted">{nick || name}</small>
 		}
 		let right = <UserView user={u} render={renderUser} />;
-		return <LMR className="px-3 py-2 align-items-end" left={left} right={right}>
-			{v} a:{a} k:{k}
-		</LMR>;
+		return <div className="px-3 py-2">			
+			<LMR className="w-100" left={left} right={right}>{v}</LMR>
+		</div>
 	}
 }
 

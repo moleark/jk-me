@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import { env } from 'tonva-react/tool';
 
 export interface SearchBoxProps {
     className?: string;
@@ -63,7 +64,9 @@ export class SearchBox extends React.Component<SearchBoxProps> { //}, SearchBoxS
 			case 'md': inputSize = 'input-group-md'; break;
 			case 'lg': inputSize = 'input-group-lg'; break;
 		}
-		return <form className={className} onSubmit={this.onSubmit} >
+		let autoComplete:string;
+		if (env.isMobile === true) autoComplete = 'off';
+		return <form className={className} onSubmit={this.onSubmit} autoComplete={autoComplete}>
 			<div className={classNames("input-group", inputSize)}>
 				{label && <div className="input-group-addon align-self-center mr-2">{label}</div>}
 				<input ref={v=>this.input=v} onChange={this.onChange}

@@ -67,7 +67,7 @@ export class VView extends VPage<CIDX> {
 								borderBottomWidth: '0.15rem',
 								borderBottomStyle: 'solid',
 							};
-							if (this.controller.timeSpan.type === v) {
+							if (timeSpan.type === v) {
 								cn += 'text-primary font-weight-bold';
 								style.borderBottomColor = 'blue';
 							}
