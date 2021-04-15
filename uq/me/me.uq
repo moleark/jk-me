@@ -17,8 +17,8 @@ IX UserAccountType (
 IDX AccountCTO (
 	id,
 	commissionFormula ID $Piecewise,			-- 对应的分段计算提成公式
-	orderAmount DEC(16,4) SUM LOG,				-- 下订单，增，发货或取消，减
-	orderDeliver DEC(16,4) SUM LOG,				-- 发货，增，收款，减
-	orderPaid DEC(16,4) SUM LOG,				-- 收款，增，提取，减
+	orderAmount DEC(16,4) SUM LOG,				-- 下订单
+	orderDeliver DEC(16,4) SUM LOG,				-- 发货
+	orderPaid DEC(16,4) SUM LOG,				-- 收款
 	amount DEC(16,4) SUM LOG,					-- 实际可提金额
 );

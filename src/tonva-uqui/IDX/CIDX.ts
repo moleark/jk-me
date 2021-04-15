@@ -42,6 +42,12 @@ export class CIDX extends Controller {
 		await this.cList.start();
 	}
 
+	async showItemView(item: any) {
+		this.item = item;
+		await this.setTimeSpan('month');
+		this.openVPage(VView);
+	}
+
 	item:any;
 	onItemClick: (item:any) => void = async (item:any) => {
 		this.item = item;

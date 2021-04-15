@@ -53,9 +53,12 @@ export abstract class Mid {
 
 	protected buildGridProps(IDX: IDXEntity<any>):Prop[] {
 		let ret:Prop[] = [];
-		let {ui, t} = IDX;
+		let {ui, t, schema} = IDX;
+		let {exFields} = schema;
 		let {fieldArr } = ui;
 		for (let f of fieldArr) {
+			let exField = (exFields as any[]).find(v => v.field === f.name);
+			if (!exField) continue;
 			let prop = {
 				...f,
 				label: t(f.label),

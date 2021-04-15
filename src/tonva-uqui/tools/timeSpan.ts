@@ -190,9 +190,9 @@ class YearSpan extends TimeSpan {
 	private initFromDate(date: Date) {
 		let year = date.getFullYear(), month = 0;
 		this.firstDay = new Date(year, month, 1);
-		this.lastDay = new Date(year, month + 1, 0);
+		this.lastDay = new Date(year+1, month, 1);
 		this.far = this.firstDay.getTime();
-		this.near = new Date(year, month+1, 1).getTime();
+		this.near = this.lastDay.getTime();
 	}
 	prev():void {
 		let date = new Date(this.firstDay.setMonth(this.firstDay.getMonth() - 1));
