@@ -24,7 +24,7 @@ IDX AccountCTO (
 );
 
 -- 这个地方模拟bus，写入订单值
-OPEN ACT WriteCTO ver 0.2 (
+OPEN ACT WriteCTO ver 0.5 (
 	user ID,
 	orderAmount DEC(16,4),
 	orderDeliver DEC(16,4),
@@ -32,12 +32,12 @@ OPEN ACT WriteCTO ver 0.2 (
 ) {
 	VAR accountId ID = ID(Account new, user);
 	IF NOT orderAmount IS NULL {
-		WITH AccountCTO as a ID=accountId SET a.orderAmount=orderAmount;
+		WITH AccountCTO as a ID=accountId SETX a.orderAmount=orderAmount ACT=1;
 	}
 	IF NOT orderDeliver IS NULL {
-		WITH AccountCTO as a ID=accountId SET a.orderDeliver=orderDeliver;
+		WITH AccountCTO as a ID=accountId SETX a.orderDeliver=orderDeliver ACT=1;
 	}
 	IF NOT orderPaid IS NULL {
-		WITH AccountCTO as a ID=accountId SET a.orderPaid=orderPaid;
+		WITH AccountCTO as a ID=accountId SETX a.orderPaid=orderPaid ACT=1;
 	}
 };
