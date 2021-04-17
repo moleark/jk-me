@@ -1,12 +1,11 @@
-ID Account (
-	id,
-	KEY user ID,
-	sys (create, owner),
-);
-
 ID AccountType (
 	id,
 	key type char(50),				-- 'cto', ...
+);
+
+IDX AccountCTOType (
+	id, 
+	commissionFormula ID $Piecewise,			-- 对应的分段计算提成公式
 );
 
 IX UserAccountType (
@@ -14,9 +13,16 @@ IX UserAccountType (
 	xi AccountType,
 );
 
+ID Account (
+	id,
+	KEY user ID $User,
+	sys (create, owner),
+);
+
 IDX AccountCTO (
 	id,
-	commissionFormula ID $Piecewise,			-- 对应的分段计算提成公式
+	type ID AccountCTOType,
+--	commissionFormula ID $Piecewise,			-- 对应的分段计算提成公式
 	orderAmount DEC(16,4) SUM LOG,				-- 下订单
 	orderDeliver DEC(16,4) SUM LOG,				-- 发货
 	orderPaid DEC(16,4) SUM LOG,				-- 收款
@@ -31,6 +37,7 @@ OPEN ACT WriteCTO ver 0.5 (
 	orderPaid DEC(16,4),
 ) {
 	VAR accountId ID = ID(Account new, user);
+	WITH AccountCTO as a ID=accountId SET a.type = ID(AccountType new, 'cto');
 	IF NOT orderAmount IS NULL {
 		WITH AccountCTO as a ID=accountId SETX a.orderAmount=orderAmount ACT=1;
 	}

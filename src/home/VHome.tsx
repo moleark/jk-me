@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { FA, List, VPage } from "tonva-react";
+import { List, VPage } from "tonva-react";
 import { AccountController, CHome } from "./CHome";
 import '../App.css';
 

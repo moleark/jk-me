@@ -33,13 +33,14 @@ export class CHome extends CUqBase {
 	load = async () => {
 		let me = this.uqs.JkMe;
 		let ret = await Promise.all([
-			me.ID<Account>({
-				IDX: me.Account,
-				id: undefined
+			me.QueryID<Account>({
+				IDX: [me.Account],
+				keyx: {user:undefined, accounType: undefined},
 			}),
-			me.ID<AccountType>({
+			me.QueryID<AccountType>({
+				IX: [me.UserAccountType],
 				IDX: [me.AccountType],
-				id: undefined,
+				ix: undefined,
 			}),
 		]);
 		let account = ret[0];
@@ -48,6 +49,7 @@ export class CHome extends CUqBase {
 		this.accountId = account[0]?.id;
 		this.accountControllers = accounType.map(v => {
 			switch(v.type) {
+				default:
 				case 'cto': return this.newSub(CCTO);
 				case 'contentmanager': return this.newSub(CContentManager);
 			}

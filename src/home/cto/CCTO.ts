@@ -4,8 +4,8 @@ import { AccountCTO } from 'uq-app/uqs/JkMe';
 import { VItem } from "./VItem";
 import { VValuePage } from "./VValuePage";
 import { action, makeObservable, observable, runInAction } from "mobx";
-import { CID, CIDX, MidIDX, MidIDXList, TimeSpan } from "tonva-uqui";
-import { CList } from "tonva-uqui/list";
+import { CIDX, MidIDX, TimeSpan } from "tonva-uqui";
+//import { CList } from "tonva-uqui/list";
 
 export class CCTO extends CUqSub<CApp, UQs, CHome> implements AccountController {
 	value: number = null;
